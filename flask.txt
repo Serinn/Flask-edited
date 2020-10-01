@@ -1,0 +1,44 @@
+import pandas as pd
+from flask import Flask,render_template,request,jsonify
+import json
+
+
+app = Flask(_name_) 
+
+@app.route('/')
+def index1():
+    return 'Hello, World!'
+
+       
+@app.route('/predict', methods = ["GET", "POST"]) 
+def price_pred():
+ 
+    #if the request is POST request
+    if request.method == 'POST':
+         price = 0
+        # get the features 
+        features = request.get_json()
+        
+        
+        # calculate the price
+        for index, feature in enumerate(features["features"]):
+            price += float(feature) * float(thetas[index])
+        price += theta0    
+
+        return json.dumps(price)
+         
+     
+    else:
+         return 'Hello World!'
+
+if _name_ == '_main_':
+    theta0 = None
+    thetas = None
+
+
+    paras = pd.read_csv('lm_parameters.csv')
+
+    theta0 = paras.iloc[0,0] 
+    thetas = paras.columns 
+    
+    app.run(debug=True)
